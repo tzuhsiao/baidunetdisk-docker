@@ -1,8 +1,9 @@
 FROM ubuntu:18.04
 
+ENV VNC_SERVER_PASSWD password
+
 ENV LANG C.UTF-8
 ENV LANGUAGE zh_CN:zh
-
 
 RUN apt-get update && \
   apt-get install -y wget x11vnc xvfb xfonts-wqy desktop-file-utils libnss3 libgtk-3-0 libasound2 && \
@@ -13,10 +14,9 @@ RUN apt-get update && \
 RUN wget http://wppkg.baidupcs.com/issue/netdisk/LinuxGuanjia/3.0.1/baidunetdisk_linux_3.0.1.2.deb -O baidunetdisk.deb && \
   dpkg -i baidunetdisk.deb
 
-RUN x11vnc -storepasswd "123456" ~/.vnc/passwd
-
 RUN sh -c 'echo "/opt/baidunetdisk/baidunetdisk" >> ~/.bashrc'
 
 EXPOSE 5900
 
-CMD ["/usr/bin/x11vnc", "-forever", "-usepw", "-create"]
+CMD /usr/bin/x11vnc -storepasswd $VNC_SERVER_PASSWD ~/.vnc/passwd && \
+  /usr/bin/x11vnc -forever -usepw -create
