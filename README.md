@@ -1,3 +1,6 @@
+[![Docker Size](https://img.shields.io/docker/image-size/tzuhsiao/baidunetdisk)](https://hub.docker.com/r/tzuhsiao/baidunetdisk])
+[![Docker Pulls](https://img.shields.io/docker/pulls/tzuhsiao/baidunetdisk)](https://hub.docker.com/r/tzuhsiao/baidunetdisk])
+
 # Example Usage
 ```
 docker run --name baidunetdisk \
