@@ -6,18 +6,15 @@ ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV LANGUAGE zh_CN:zh
 
-RUN apt-get update && \
-  apt-get install -y \
+RUN apt-get -qqy update && \
+  apt-get -qqy install \
     wget \
     x11vnc \
     xvfb \
     desktop-file-utils \
     libnss3 \
     libgtk-3-0 \
-    libasound2
-
-RUN apt-get -qqy update && \
-  apt-get -qqy --no-install-recommends install \
+    libasound2 \
     libfontconfig \
     libfreetype6 \
     xfonts-cyrillic \
@@ -34,7 +31,8 @@ RUN mkdir ~/.vnc && \
 RUN wget \
   http://wppkg.baidupcs.com/issue/netdisk/LinuxGuanjia/3.0.1/baidunetdisk_linux_3.0.1.2.deb \
     -O baidunetdisk.deb && \
-  dpkg -i baidunetdisk.deb
+  dpkg -i baidunetdisk.deb && \
+  rm baidunetdisk.deb -f
 
 RUN sh -c 'echo "/opt/baidunetdisk/baidunetdisk" >> ~/.bashrc'
 
