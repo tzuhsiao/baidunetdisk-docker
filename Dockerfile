@@ -40,4 +40,4 @@ EXPOSE 5900
 
 CMD echo "VNC (vnc://localhost:5900) password is $VNC_SERVER_PASSWD" && \
   /usr/bin/x11vnc -storepasswd $VNC_SERVER_PASSWD ~/.vnc/passwd && \
-  /usr/bin/x11vnc -forever -usepw -create
+  /usr/bin/x11vnc --geometry 1600x1200 -forever -usepw -create
