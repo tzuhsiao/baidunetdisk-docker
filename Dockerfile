@@ -8,6 +8,7 @@ ENV LANGUAGE zh_CN:zh
 
 RUN apt-get -qqy update && \
   apt-get -qqy install \
+    supervisor \
     wget \
     x11vnc \
     xvfb \
@@ -25,8 +26,8 @@ RUN apt-get -qqy update && \
   rm -rf /var/lib/apt/lists/* && \
   apt-get -qyy clean
 
-RUN mkdir ~/.vnc && \
-  touch ~/.vnc/passwd
+RUN mkdir /root/.vnc && \
+  touch /root/.vnc/passwd
 
 RUN wget \
   http://wppkg.baidupcs.com/issue/netdisk/LinuxGuanjia/3.0.1/baidunetdisk_linux_3.0.1.2.deb \
@@ -34,10 +35,11 @@ RUN wget \
   dpkg -i baidunetdisk.deb && \
   rm baidunetdisk.deb -f
 
-RUN sh -c 'echo "/opt/baidunetdisk/baidunetdisk" >> ~/.bashrc'
+COPY supervisord.conf /root/supervisord.conf
 
 EXPOSE 5900
 
 CMD echo "VNC (vnc://localhost:5900) password is $VNC_SERVER_PASSWD" && \
   /usr/bin/x11vnc -storepasswd $VNC_SERVER_PASSWD ~/.vnc/passwd && \
-  /usr/bin/x11vnc --geometry 1600x1200 -forever -usepw -create
+  /usr/bin/supervisord -c /root/supervisord.conf && \
+  /usr/bin/tail -f /dev/null
