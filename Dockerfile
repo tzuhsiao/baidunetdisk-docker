@@ -41,6 +41,9 @@ RUN wget \
   dpkg -i baidunetdisk.deb && \
   rm baidunetdisk.deb -f
 
+# Remove cap_net_admin capabilities to avoid failing with 'operation not permitted'.
+RUN setcap -r `which i3status`
+
 COPY supervisord.conf /root/supervisord.conf
 COPY i3_config /root/.config/i3/config
 
