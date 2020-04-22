@@ -6,12 +6,18 @@ ENV LC_ALL C.UTF-8
 ENV LANG C.UTF-8
 ENV LANGUAGE zh_CN:zh
 
+# Variables needed for non interactive tzdata installation.
+ENV TZ=Asia/Shanghai
+ENV DEBIAN_FRONTEND="noninteractive"
+
 RUN apt-get -qqy update && \
   apt-get -qqy install \
     supervisor \
     wget \
     x11vnc \
     xvfb \
+    i3status \
+    i3-wm \
     desktop-file-utils \
     libnss3 \
     libgtk-3-0 \
