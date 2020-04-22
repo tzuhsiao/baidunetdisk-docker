@@ -42,6 +42,7 @@ RUN wget \
   rm baidunetdisk.deb -f
 
 COPY supervisord.conf /root/supervisord.conf
+COPY i3_config /root/.config/i3/config
 
 EXPOSE 5900
 
