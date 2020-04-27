@@ -16,6 +16,7 @@ RUN apt-get -qqy update && \
     wget \
     x11vnc \
     xvfb \
+    websockify \
     i3status \
     i3-wm \
     desktop-file-utils \
@@ -36,10 +37,16 @@ RUN mkdir /root/.vnc && \
   touch /root/.vnc/passwd
 
 RUN wget \
-  http://wppkg.baidupcs.com/issue/netdisk/LinuxGuanjia/3.0.1/baidunetdisk_linux_3.0.1.2.deb \
+    http://wppkg.baidupcs.com/issue/netdisk/LinuxGuanjia/3.0.1/baidunetdisk_linux_3.0.1.2.deb \
     -O baidunetdisk.deb && \
   dpkg -i baidunetdisk.deb && \
   rm baidunetdisk.deb -f
+
+RUN wget \
+    https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz -O novnc.tar.gz && \
+  mkdir -p /root/novnc && \
+  tar -xzf novnc.tar.gz -C /root/novnc && \
+  rm novnc.tar.gz websockify.tar.gz -f
 
 # Remove cap_net_admin capabilities to avoid failing with 'operation not permitted'.
 RUN setcap -r `which i3status`
@@ -48,6 +55,7 @@ COPY supervisord.conf /root/supervisord.conf
 COPY i3_config /root/.config/i3/config
 
 EXPOSE 5900
+EXPOSE 6080
 
 CMD echo "VNC (vnc://localhost:5900) password is $VNC_SERVER_PASSWD" && \
   /usr/bin/x11vnc -storepasswd $VNC_SERVER_PASSWD ~/.vnc/passwd && \
