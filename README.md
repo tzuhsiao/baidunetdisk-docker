@@ -11,5 +11,8 @@ docker run --name baidunetdisk \
   tzuhsiao/baidunetdisk:latest
 ```
 
-# 通过VNC访问
+## 通过VNC访问
 使用任何VNC客户端连接，如[VNC® Viewer](https://www.realvnc.com/en/connect/download/viewer/)，[TightVNC](https://www.tightvnc.com/)。
+
+## 通过浏览器访问
+默认端口为6080。
