@@ -20,16 +20,21 @@ RUN apt-get -qqy update && \
     i3status \
     i3-wm \
     desktop-file-utils \
+    libappindicator3-1 \
+    libasound2 \
     libnss3 \
     libgtk-3-0 \
-    libasound2 \
     libfontconfig \
     libfreetype6 \
+    libgbm-dev \
+    libnotify4 \
+    libsecret-1-0 \
     xfonts-cyrillic \
     xfonts-scalable \
     fonts-liberation \
     fonts-ipafont-gothic \
-    fonts-wqy-zenhei && \
+    fonts-wqy-zenhei \
+    xdg-utils && \
   rm -rf /var/lib/apt/lists/* && \
   apt-get -qyy clean
 
