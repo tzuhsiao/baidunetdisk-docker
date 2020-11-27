@@ -42,7 +42,7 @@ RUN mkdir /root/.vnc && \
   touch /root/.vnc/passwd
 
 RUN wget \
-    http://issuecdn.baidupcs.com/issue/netdisk/LinuxGuanjia/3.4.1/baidunetdisk_3.4.1_amd64.deb \
+    https://issuecdn.baidupcs.com/issue/netdisk/LinuxGuanjia/3.5.0/baidunetdisk_3.5.0_amd64.deb \
     -O baidunetdisk.deb && \
   dpkg -i baidunetdisk.deb && \
   rm baidunetdisk.deb -f
