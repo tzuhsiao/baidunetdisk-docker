@@ -1,5 +1,8 @@
 FROM ubuntu:18.04
 
+ENV BAIDUNETDISK_PACKAGE https://issuepcdn.baidupcs.com/issue/netdisk/LinuxGuanjia/4.3.0/baidunetdisk_4.3.0_amd64.deb
+ENV NOVNC_PACKAGE https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.zip
+
 ENV VNC_SERVER_PASSWD password
 
 ENV LC_ALL C.UTF-8
@@ -41,14 +44,11 @@ RUN apt-get -qqy update && \
 RUN mkdir /root/.vnc && \
   touch /root/.vnc/passwd
 
-RUN wget \
-    https://issuecdn.baidupcs.com/issue/netdisk/LinuxGuanjia/3.5.0/baidunetdisk_3.5.0_amd64.deb \
-    -O baidunetdisk.deb && \
+RUN wget ${BAIDUNETDISK_PACKAGE} -O baidunetdisk.deb && \
   dpkg -i baidunetdisk.deb && \
   rm baidunetdisk.deb -f
 
-RUN wget \
-    https://github.com/novnc/noVNC/archive/v1.1.0.tar.gz -O novnc.tar.gz && \
+RUN wget ${NOVNC_PACKAGE} -O novnc.tar.gz && \
   mkdir -p /root/novnc && \
   tar -xzf novnc.tar.gz -C /root/novnc && \
   rm novnc.tar.gz websockify.tar.gz -f
