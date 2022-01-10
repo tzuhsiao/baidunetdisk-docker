@@ -1,7 +1,7 @@
 FROM ubuntu:18.04
 
 ENV BAIDUNETDISK_PACKAGE https://issuepcdn.baidupcs.com/issue/netdisk/LinuxGuanjia/4.3.0/baidunetdisk_4.3.0_amd64.deb
-ENV NOVNC_PACKAGE https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.zip
+ENV NOVNC_PACKAGE https://github.com/novnc/noVNC/archive/refs/tags/v1.3.0.tar.gz
 
 ENV VNC_SERVER_PASSWD password
 
@@ -48,10 +48,12 @@ RUN wget ${BAIDUNETDISK_PACKAGE} -O baidunetdisk.deb && \
   dpkg -i baidunetdisk.deb && \
   rm baidunetdisk.deb -f
 
+# Download and extract noVNC, then remove the version number in directory name.
 RUN wget ${NOVNC_PACKAGE} -O novnc.tar.gz && \
   mkdir -p /root/novnc && \
   tar -xzf novnc.tar.gz -C /root/novnc && \
-  rm novnc.tar.gz websockify.tar.gz -f
+  rm novnc.tar.gz websockify.tar.gz -f && \
+  mv /root/novnc/noVNC-* /root/novnc/noVNC
 
 # Remove cap_net_admin capabilities to avoid failing with 'operation not permitted'.
 RUN setcap -r `which i3status`
